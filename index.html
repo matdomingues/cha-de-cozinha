@@ -11,17 +11,17 @@
 
 <!-- ===================== HERO ===================== -->
 <header class="hero" id="topo">
-  <svg class="sprig" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <svg class="sprig hero-fade hero-fade--1" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M32 78V20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    <path d="M32 34C32 34 18 30 14 16C14 16 30 14 32 34Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M32 50C32 50 46 46 50 32C50 32 34 30 32 50Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M32 20C32 20 20 16 18 4C18 4 32 4 32 20Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M32 34C32 34 18 30 14 16C14 16 30 14 32 34Z" fill="currentColor" fill-opacity="0.16" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M32 50C32 50 46 46 50 32C50 32 34 30 32 50Z" fill="currentColor" fill-opacity="0.16" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M32 20C32 20 20 16 18 4C18 4 32 4 32 20Z" fill="currentColor" fill-opacity="0.16" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
   </svg>
-  <span class="hero__label">Chá de cozinha</span>
-  <h1 class="hero__names">Fernanda &amp; Matheus</h1>
-  <p class="hero__sub">Com muito carinho, convidamos você para celebrar conosco</p>
-  <p class="hero__meta" id="hero-date">29 de agosto de 2026 · Condomínio Coimbra</p>
-  <a href="#detalhes" class="hero__scroll">↓ ver detalhes do evento</a>
+  <span class="hero__label hero-fade hero-fade--2">Chá de cozinha</span>
+  <h1 class="hero__names hero-fade hero-fade--3">Fernanda &amp; Matheus</h1>
+  <p class="hero__sub hero-fade hero-fade--4">Com muito carinho, convidamos você para celebrar conosco</p>
+  <p class="hero__meta hero-fade hero-fade--4" id="hero-date">29 de agosto de 2026 · Condomínio Coimbra</p>
+  <a href="#detalhes" class="hero__scroll hero-fade hero-fade--5">↓ ver detalhes do evento</a>
 </header>
 
 <!-- ===================== DETALHES ===================== -->
@@ -29,7 +29,7 @@
   <div class="container">
     <span class="eyebrow">Informações</span>
     <h2>Detalhes do evento</h2>
-    <div class="details-grid">
+    <div class="details-grid reveal">
       <div class="detail-card">
         <svg class="detail-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
         <h3 id="detail-date">29 de agosto de 2026</h3>
@@ -56,7 +56,7 @@
     <h2>Confirme sua presença</h2>
     <p>Conte pra gente se você vem e quantas pessoas te acompanham. É rapidinho!</p>
 
-    <form class="card" id="rsvp-form">
+    <form class="card reveal" id="rsvp-form">
       <div class="form-group">
         <label for="rsvp-name">Seu nome</label>
         <input type="text" id="rsvp-name" name="rsvp-name" required autocomplete="name" placeholder="Ex: Maria da Silva" />
@@ -82,7 +82,7 @@
     <h2>Escolha um mimo para presentear</h2>
     <p>Os presentes abaixo são simbólicos — o valor pode ser enviado direto via Pix, no valor aproximado que preferir.</p>
 
-    <div class="gift-grid" id="gift-grid"></div>
+    <div class="gift-grid reveal" id="gift-grid"></div>
     <p class="gift-hint">Escolheu um? Toque no card para ver o QR Code de pagamento.</p>
   </div>
 </section>
@@ -93,7 +93,7 @@
     <span class="eyebrow">Presente livre</span>
     <h2>Prefere escolher o valor?</h2>
     <p>Você também pode presentear com o valor que quiser, direto na nossa chave Pix.</p>
-    <button class="btn btn--gold" id="btn-pix-livre">Presentear com valor livre</button>
+    <button class="btn btn--gold reveal" id="btn-pix-livre">Presentear com valor livre</button>
   </div>
 </section>
 
@@ -102,7 +102,7 @@
   <div class="container">
     <span class="eyebrow">Diversão</span>
     <h2>Vai ter bingo!</h2>
-    <div class="bingo-box">
+    <div class="bingo-box reveal">
       <p id="bingo-text">Vamos ter bingo para todo mundo! Pedimos que cada convidado traga uma prenda simples para ser sorteada.</p>
       <hr class="divider" />
       <p id="bring-text">Também pedimos a colaboração de cada família com 1kg de carne e bebidas.</p>

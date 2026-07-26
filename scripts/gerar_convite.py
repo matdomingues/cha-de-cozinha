@@ -10,7 +10,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor
 
 # ---------- CONFIGURAÇÃO ----------
-SITE_URL = "https://SEU-USUARIO.github.io/cha-de-cozinha/#rsvp"  # atualize após publicar o site
+SITE_URL = "https://matdomingues.github.io/cha-de-cozinha/#rsvp"
 COUPLE_NAMES = "Fernanda & Matheus"
 DATE_LABEL = "29 de agosto de 2026"
 DATE_NOTE = "(data e horário em confirmação)"

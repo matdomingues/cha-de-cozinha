@@ -54,6 +54,12 @@ a {
 
 .section--alt {
   background: var(--cream-light);
+  background-image: radial-gradient(rgba(111, 122, 86, 0.14) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+.section--alt > .container {
+  position: relative;
 }
 
 .eyebrow {
@@ -94,6 +100,62 @@ a {
   padding: 48px 24px;
   background: radial-gradient(circle at 50% 0%, var(--cream-light) 0%, var(--cream) 70%);
   position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  width: 520px;
+  height: 520px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(198, 154, 93, 0.16) 0%, rgba(175, 183, 150, 0.14) 45%, transparent 72%);
+  filter: blur(4px);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px solid rgba(111, 122, 86, 0.28);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-fade {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: heroFadeIn 1s ease forwards;
+}
+
+.hero-fade--1 { animation-delay: 0.05s; }
+.hero-fade--2 { animation-delay: 0.25s; }
+.hero-fade--3 { animation-delay: 0.45s; }
+.hero-fade--4 { animation-delay: 0.65s; }
+.hero-fade--5 { animation-delay: 0.85s; }
+
+@keyframes heroFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .hero__label {
@@ -144,6 +206,12 @@ a {
   padding: 28px;
   box-shadow: var(--shadow);
   text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.detail-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(66, 63, 51, 0.16);
 }
 
 .detail-card__icon {
@@ -290,7 +358,22 @@ textarea {
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid transparent;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.gift-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(66, 63, 51, 0.18);
+  border-color: rgba(198, 154, 93, 0.5);
+}
+
+.gift-card__icon {
+  width: 34px;
+  height: 34px;
+  color: var(--gold);
 }
 
 .gift-card__name {
@@ -407,6 +490,26 @@ footer {
   padding: 48px 24px 60px;
   color: var(--sage-deep);
   font-size: 0.95rem;
+}
+
+/* ---------- REVEAL ON SCROLL ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 @media (max-width: 620px) {

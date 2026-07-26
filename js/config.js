@@ -23,9 +23,9 @@ const EVENT_CONFIG = {
   // Veja o README.md para o passo a passo de como criar sua conta gratuita
   // no https://www.emailjs.com/ e preencher os 3 campos abaixo.
   emailJs: {
-    publicKey: "BG-ZQVOwt8qNe36D6",
-    serviceId: "service_ulu6ye6",
-    templateId: "template_ase57np",
+    publicKey: "SUA_PUBLIC_KEY_AQUI",
+    serviceId: "SEU_SERVICE_ID_AQUI",
+    templateId: "SEU_TEMPLATE_ID_AQUI",
   },
 
   // --- Pix ---
