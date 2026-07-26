@@ -79,13 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!name || !count) return;
 
-    if (!selectedGift) {
-      const proceed = window.confirm(
-        "Você ainda não escolheu um presente. Quer confirmar presença assim mesmo? (Você ainda pode escolher depois)"
-      );
-      if (!proceed) return;
-    }
-
     const submittedAt = new Date().toLocaleString("pt-BR", {
       dateStyle: "short",
       timeStyle: "short",
