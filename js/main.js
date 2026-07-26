@@ -11,6 +11,39 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("bingo-text").textContent = EVENT_CONFIG.bingoText;
   document.getElementById("bring-text").textContent = EVENT_CONFIG.bringText;
 
+  // ---------- Contador regressivo ----------
+  const countdownEl = document.getElementById("countdown");
+  const targetDate = new Date(EVENT_CONFIG.eventDateTime);
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = targetDate - now;
+
+    if (isNaN(targetDate.getTime())) {
+      countdownEl.style.display = "none";
+      return;
+    }
+
+    if (diff <= 0) {
+      countdownEl.innerHTML = '<p class="countdown--done">É hoje! 🌿</p>';
+      clearInterval(countdownInterval);
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("cd-days").textContent = String(days).padStart(2, "0");
+    document.getElementById("cd-hours").textContent = String(hours).padStart(2, "0");
+    document.getElementById("cd-minutes").textContent = String(minutes).padStart(2, "0");
+    document.getElementById("cd-seconds").textContent = String(seconds).padStart(2, "0");
+  }
+
+  updateCountdown();
+  const countdownInterval = setInterval(updateCountdown, 1000);
+
   // ---------- EmailJS init ----------
   if (window.emailjs && EVENT_CONFIG.emailJs.publicKey !== "SUA_PUBLIC_KEY_AQUI") {
     emailjs.init({ publicKey: EVENT_CONFIG.emailJs.publicKey });

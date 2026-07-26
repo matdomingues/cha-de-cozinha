@@ -12,6 +12,11 @@ const EVENT_CONFIG = {
   dateLabel: "29 de agosto de 2026",
   dateNote: "Data e horário em confirmação — em breve atualizamos aqui!",
   timeLabel: "Horário a confirmar",
+  // eventDateTime: usado SÓ para calcular o contador regressivo.
+  // Formato: "AAAA-MM-DDTHH:MM:00-03:00" (horário de Brasília).
+  // Ainda sem hora definida? Deixe um horário provisório (ex: 16:00) —
+  // o contador funciona normalmente e o aviso acima já avisa que pode mudar.
+  eventDateTime: "2026-08-29T16:00:00-03:00",
   addressLine1: "Rua Américo Figueiredo, 6355",
   addressLine2: "Condomínio Coimbra — Salão de festas",
   // Link do Google Maps (gerado a partir do endereço acima)
@@ -23,9 +28,9 @@ const EVENT_CONFIG = {
   // Veja o README.md para o passo a passo de como criar sua conta gratuita
   // no https://www.emailjs.com/ e preencher os 3 campos abaixo.
   emailJs: {
-    publicKey: "SUA_PUBLIC_KEY_AQUI",
-    serviceId: "SEU_SERVICE_ID_AQUI",
-    templateId: "SEU_TEMPLATE_ID_AQUI",
+    publicKey: "BG-ZQVOwt8qNe36D6",
+    serviceId: "service_ulu6ye6",
+    templateId: "template_ase57np",
   },
 
   // --- Pix ---
