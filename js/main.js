@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.05, rootMargin: "0px 0px -5% 0px" }
     );
     revealEls.forEach((el) => io.observe(el));
   } else {
