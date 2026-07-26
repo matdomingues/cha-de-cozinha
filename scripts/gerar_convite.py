@@ -13,7 +13,7 @@ from reportlab.lib.colors import HexColor
 SITE_URL = "https://matdomingues.github.io/cha-de-cozinha/#rsvp"
 COUPLE_NAMES = "Fernanda & Matheus"
 DATE_LABEL = "29 de agosto de 2026"
-DATE_NOTE = "(data e horário em confirmação)"
+DATE_NOTE = ""  # deixe vazio agora que a data está confirmada; preencha se precisar avisar algo
 ADDRESS_1 = "Rua Américo Figueiredo, 6355"
 ADDRESS_2 = "Condomínio Coimbra — Salão de festas"
 OUTPUT_PATH = "docs/convite.pdf"
@@ -69,7 +69,7 @@ def draw_invite(c):
     # eyebrow
     c.setFillColor(GOLD)
     c.setFont("Helvetica-Bold", 11)
-    text = "C H Á   D E   C O Z I N H A"
+    text = "C H Á   D E   P A N E L A"
     c.drawCentredString(center_x, H - 92 * mm, text)
 
     # nomes
@@ -99,9 +99,10 @@ def draw_invite(c):
     c.setFillColor(SAGE_DEEP)
     c.setFont("Times-Bold", 15)
     c.drawCentredString(center_x, card_y + card_h - 16 * mm, DATE_LABEL)
-    c.setFillColor(INK)
-    c.setFont("Helvetica-Oblique", 9.5)
-    c.drawCentredString(center_x, card_y + card_h - 22 * mm, DATE_NOTE)
+    if DATE_NOTE:
+        c.setFillColor(INK)
+        c.setFont("Helvetica-Oblique", 9.5)
+        c.drawCentredString(center_x, card_y + card_h - 22 * mm, DATE_NOTE)
 
     c.setStrokeColor(CREAM)
     c.setLineWidth(1)

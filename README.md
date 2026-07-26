@@ -1,6 +1,6 @@
-# Chá de Cozinha — Fernanda & Matheus 🌿
+# Chá de Panela — Fernanda & Matheus 🌿
 
-Site simples e bonito para o chá de cozinha, com confirmação de presença por
+Site simples e bonito para o chá de panela, com confirmação de presença por
 e-mail, lista de presentes e pagamento direto via Pix (com QR Code).
 
 Não precisa de servidor, banco de dados nem programação para funcionar — é só
@@ -34,7 +34,7 @@ e-mail, sem precisar de servidor.
 3. Em **Email Templates**, crie um template novo com este conteúdo, por
    exemplo:
    ```
-   Assunto: Nova confirmação de presença — Chá de Cozinha
+   Assunto: Nova confirmação de presença — Chá de Panela
 
    Nome: {{guest_name}}
    Quantidade de pessoas: {{guest_count}}

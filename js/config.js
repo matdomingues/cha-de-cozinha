@@ -8,14 +8,11 @@ const EVENT_CONFIG = {
   coupleNames: "Fernanda & Matheus",
 
   // --- Data e local ---
-  // dateLabel: o texto exibido no site. Deixe como está até a data ser confirmada.
   dateLabel: "29 de agosto de 2026",
-  dateNote: "Data e horário em confirmação — em breve atualizamos aqui!",
+  // timeLabel: horário exibido no site. Atualize aqui quando tiver o horário definitivo.
   timeLabel: "Horário a confirmar",
-  // eventDateTime: usado SÓ para calcular o contador regressivo.
-  // Formato: "AAAA-MM-DDTHH:MM:00-03:00" (horário de Brasília).
-  // Ainda sem hora definida? Deixe um horário provisório (ex: 16:00) —
-  // o contador funciona normalmente e o aviso acima já avisa que pode mudar.
+  // eventDateTime: usado para calcular o contador regressivo.
+  // Formato: "AAAA-MM-DDTHH:MM:00-03:00" (horário de Brasília). Atualize junto com timeLabel.
   eventDateTime: "2026-08-29T16:00:00-03:00",
   addressLine1: "Rua Américo Figueiredo, 6355",
   addressLine2: "Condomínio Coimbra — Salão de festas",
@@ -40,23 +37,114 @@ const EVENT_CONFIG = {
     receiverCity: "Votorantim",
   },
 
-  // --- Lista de presentes (valores estimados/aproximados) ---
-  gifts: [
-    { name: "Jogo de panelas antiaderentes", value: 320 },
-    { name: "Air fryer", value: 380 },
-    { name: "Jogo de facas profissionais", value: 180 },
-    { name: "Liquidificador", value: 210 },
-    { name: "Kit de temperos e especiarias", value: 90 },
-    { name: "Jogo de taças de vinho", value: 130 },
-    { name: "Panela de pressão elétrica", value: 350 },
-    { name: "Aparelho de jantar (12 peças)", value: 260 },
-    { name: "Jogo de toalhas de cozinha", value: 70 },
-    { name: "Forma de bolo com fundo removível", value: 60 },
-    { name: "Cafeteira elétrica", value: 230 },
-    { name: "Kit para churrasco", value: 150 },
-    { name: "Jogo de potes herméticos", value: 110 },
-    { name: "Batedeira", value: 290 },
-    { name: "Jogo de copos de vidro", value: 85 },
+  // --- Lista de presentes (valores estimados/aproximados), organizada por categoria ---
+  giftCategories: [
+    {
+      category: "Cozinha",
+      items: [
+        { name: "Jogo de panelas", value: 320 },
+        { name: "Panela de pressão", value: 220 },
+        { name: "Frigideira antiaderente", value: 90 },
+        { name: "Panela wok", value: 130 },
+        { name: "Caçarola", value: 100 },
+        { name: "Leiteira", value: 60 },
+        { name: "Assadeiras", value: 50 },
+        { name: "Forma para bolo", value: 45 },
+        { name: "Forma para pizza", value: 40 },
+        { name: "Travessa de vidro", value: 70 },
+        { name: "Bowls", value: 55 },
+        { name: "Escorredor de arroz", value: 35 },
+        { name: "Escorredor de macarrão", value: 40 },
+        { name: "Peneiras", value: 25 },
+        { name: "Tábua de corte", value: 45 },
+        { name: "Kit de facas", value: 180 },
+        { name: "Descascador", value: 15 },
+        { name: "Ralador", value: 20 },
+        { name: "Espremedor de alho", value: 20 },
+        { name: "Abridor de latas", value: 20 },
+        { name: "Abridor de vinho", value: 25 },
+        { name: "Tesoura de cozinha", value: 25 },
+        { name: "Fouet", value: 20 },
+        { name: "Espátula de silicone", value: 20 },
+        { name: "Colher de silicone", value: 20 },
+        { name: "Pegador de massa", value: 20 },
+        { name: "Concha", value: 20 },
+        { name: "Escumadeira", value: 20 },
+        { name: "Pegador de salada", value: 25 },
+        { name: "Colheres e xícaras medidoras", value: 30 },
+      ],
+    },
+    {
+      category: "Mesa",
+      items: [
+        { name: "Jogo de pratos", value: 260 },
+        { name: "Jogo de copos", value: 85 },
+        { name: "Taças", value: 130 },
+        { name: "Xícaras", value: 60 },
+        { name: "Canecas", value: 45 },
+        { name: "Faqueiro", value: 150 },
+        { name: "Jarra", value: 50 },
+        { name: "Porta-guardanapos", value: 25 },
+        { name: "Toalha de mesa", value: 60 },
+        { name: "Jogo americano", value: 45 },
+      ],
+    },
+    {
+      category: "Organização",
+      items: [
+        { name: "Potes herméticos", value: 110 },
+        { name: "Porta-mantimentos", value: 60 },
+        { name: "Porta-temperos", value: 70 },
+        { name: "Saleiro", value: 20 },
+        { name: "Pimenteiro", value: 20 },
+        { name: "Porta-talheres", value: 45 },
+        { name: "Organizador de gavetas", value: 50 },
+        { name: "Cesto organizador", value: 55 },
+      ],
+    },
+    {
+      category: "Limpeza",
+      items: [
+        { name: "Lixeira", value: 90 },
+        { name: "Escorredor de louça", value: 80 },
+        { name: "Panos de prato", value: 30 },
+        { name: "Panos de limpeza", value: 25 },
+        { name: "Esponjas", value: 15 },
+        { name: "Luvas", value: 15 },
+        { name: "Balde", value: 25 },
+        { name: "Rodo", value: 30 },
+        { name: "Vassoura", value: 30 },
+        { name: "Pá de lixo", value: 20 },
+      ],
+    },
+    {
+      category: "Eletroportáteis",
+      items: [
+        { name: "Liquidificador", value: 210 },
+        { name: "Cafeteira", value: 230 },
+        { name: "Chaleira elétrica", value: 130 },
+        { name: "Sanduicheira", value: 120 },
+        { name: "Torradeira", value: 150 },
+        { name: "Mixer", value: 160 },
+        { name: "Grill elétrico", value: 220 },
+      ],
+    },
+    {
+      category: "Extras",
+      items: [
+        { name: "Boleira", value: 60 },
+        { name: "Bandeja", value: 45 },
+        { name: "Petisqueira", value: 40 },
+        { name: "Porta-bolo", value: 55 },
+        { name: "Garrafa térmica", value: 90 },
+        { name: "Moedor de pimenta", value: 45 },
+        { name: "Moedor de café", value: 130 },
+        { name: "Escorredor de salada", value: 40 },
+        { name: "Porta-papel toalha", value: 25 },
+        { name: "Porta-filme", value: 20 },
+        { name: "Timer de cozinha", value: 25 },
+      ],
+    },
   ],
 
   // --- Bingo / o que trazer ---

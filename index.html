@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Chá de Cozinha — Fernanda & Matheus</title>
-<meta name="description" content="Confirme presença e escolha um presente para o chá de cozinha de Fernanda e Matheus." />
+<title>Chá de Panela — Fernanda & Matheus</title>
+<meta name="description" content="Confirme presença e escolha um presente para o chá de panela de Fernanda e Matheus." />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -17,7 +17,7 @@
     <path d="M32 50C32 50 46 46 50 32C50 32 34 30 32 50Z" fill="currentColor" fill-opacity="0.16" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
     <path d="M32 20C32 20 20 16 18 4C18 4 32 4 32 20Z" fill="currentColor" fill-opacity="0.16" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
   </svg>
-  <span class="hero__label hero-fade hero-fade--2">Chá de cozinha</span>
+  <span class="hero__label hero-fade hero-fade--2">Chá de Panela</span>
   <h1 class="hero__names hero-fade hero-fade--3">Fernanda &amp; Matheus</h1>
   <p class="hero__sub hero-fade hero-fade--4">Com muito carinho, convidamos você para celebrar conosco</p>
   <p class="hero__meta hero-fade hero-fade--4" id="hero-date">29 de agosto de 2026 · Condomínio Coimbra</p>
@@ -63,9 +63,6 @@
         <a class="map-link" id="detail-maps" href="#" target="_blank" rel="noopener">Ver no mapa →</a>
       </div>
     </div>
-    <div class="note" id="detail-note">
-      Data e horário em confirmação — em breve atualizamos aqui!
-    </div>
   </div>
 </section>
 
@@ -77,6 +74,10 @@
     <p>Conte pra gente se você vem e quantas pessoas te acompanham. É rapidinho!</p>
 
     <form class="card reveal" id="rsvp-form">
+      <div class="gift-status" id="gift-status">
+        <span id="gift-status-text">Você ainda não escolheu um presente.</span>
+        <a href="#presentes" class="gift-status__link">Escolher agora →</a>
+      </div>
       <div class="form-group">
         <label for="rsvp-name">Seu nome</label>
         <input type="text" id="rsvp-name" name="rsvp-name" required autocomplete="name" placeholder="Ex: Maria da Silva" />
@@ -102,6 +103,7 @@
     <h2>Escolha um mimo para presentear</h2>
     <p>Os presentes abaixo são simbólicos — o valor pode ser enviado direto via Pix, no valor aproximado que preferir.</p>
 
+    <div class="gift-filters reveal" id="gift-filters"></div>
     <div class="gift-grid reveal" id="gift-grid"></div>
     <p class="gift-hint">Escolheu um? Toque no card para ver o QR Code de pagamento.</p>
   </div>
@@ -146,6 +148,7 @@
     <img id="pix-modal-qr" src="" alt="QR Code Pix" />
     <div class="pix-code-box" id="pix-modal-code"></div>
     <button class="btn btn--block" id="pix-copy-btn">Copiar código Pix</button>
+    <button class="btn btn--gold btn--block" id="pix-select-btn">Marcar como meu presente ✓</button>
   </div>
 </div>
 

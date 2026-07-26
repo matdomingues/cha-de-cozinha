@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("detail-address1").textContent = EVENT_CONFIG.addressLine1;
   document.getElementById("detail-address2").textContent = EVENT_CONFIG.addressLine2;
   document.getElementById("detail-maps").href = EVENT_CONFIG.mapsUrl;
-  document.getElementById("detail-note").textContent = EVENT_CONFIG.dateNote;
   document.getElementById("bingo-text").textContent = EVENT_CONFIG.bingoText;
   document.getElementById("bring-text").textContent = EVENT_CONFIG.bringText;
 
@@ -52,6 +51,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- RSVP form ----------
   const form = document.getElementById("rsvp-form");
   const status = document.getElementById("rsvp-status");
+  let selectedGift = null; // { name, value } ou null se ainda não escolheu
+
+  function giftLabel() {
+    if (!selectedGift) return "Ainda não escolheu um presente";
+    if (selectedGift.value) return `${selectedGift.name} (R$ ${selectedGift.value})`;
+    return `${selectedGift.name} (valor livre)`;
+  }
+
+  function updateGiftStatusUI() {
+    const box = document.getElementById("gift-status");
+    const text = document.getElementById("gift-status-text");
+    if (selectedGift) {
+      box.classList.add("gift-status--chosen");
+      text.textContent = "Presente escolhido: " + giftLabel() + " ✓";
+    } else {
+      box.classList.remove("gift-status--chosen");
+      text.textContent = "Você ainda não escolheu um presente.";
+    }
+  }
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -60,6 +78,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const message = document.getElementById("rsvp-message").value.trim();
 
     if (!name || !count) return;
+
+    if (!selectedGift) {
+      const proceed = window.confirm(
+        "Você ainda não escolheu um presente. Quer confirmar presença assim mesmo? (Você ainda pode escolher depois)"
+      );
+      if (!proceed) return;
+    }
 
     const submittedAt = new Date().toLocaleString("pt-BR", {
       dateStyle: "short",
@@ -71,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
       guest_count: count,
       guest_message: message || "(sem mensagem)",
       submitted_at: submittedAt,
+      gift_choice: giftLabel(),
     };
 
     const notConfigured =
@@ -126,6 +152,14 @@ document.addEventListener("DOMContentLoaded", () => {
     churrasco: '<path d="M12 3c1 2-1 2-1 4a2 2 0 004 0c0-1-1-2-1-3"/><path d="M6 14c2-2 10-2 12 0M7 14c0 4 3 7 5 7s5-3 5-7"/>',
     potes: '<rect x="7" y="8" width="10" height="12" rx="2"/><path d="M9 8V6h6v2"/>',
     hermético: '<rect x="7" y="8" width="10" height="12" rx="2"/><path d="M9 8V6h6v2"/>',
+    prato: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.4"/>',
+    xícara: '<path d="M5 8h11v6a4 4 0 01-4 4H9a4 4 0 01-4-4V8z"/><path d="M16 9h2a2 2 0 010 4h-2"/>',
+    caneca: '<path d="M5 8h11v6a4 4 0 01-4 4H9a4 4 0 01-4-4V8z"/><path d="M16 9h2a2 2 0 010 4h-2"/>',
+    tesoura: '<circle cx="7" cy="6" r="2.4"/><circle cx="7" cy="18" r="2.4"/><path d="M9 8l11 10M20 6L9 16"/>',
+    chaleira: '<path d="M6 8h9a3 3 0 010 6h-1"/><path d="M6 8v9a2 2 0 002 2h4a2 2 0 002-2v-3"/>',
+    lixeira: '<path d="M6 8h12l-1 12H7L6 8z"/><path d="M4 8h16M9 5h6"/>',
+    garrafa: '<path d="M10 3h4v4l2 3v10a2 2 0 01-2 2h-4a2 2 0 01-2-2V10l2-3V3z"/>',
+    moedor: '<path d="M9 3h6l1 6H8l1-6z"/><path d="M8 9h8l-1 12H9L8 9z"/>',
   };
 
   function iconFor(name) {
@@ -134,17 +168,57 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const grid = document.getElementById("gift-grid");
-  EVENT_CONFIG.gifts.forEach((gift) => {
-    const card = document.createElement("button");
-    card.className = "gift-card";
-    card.type = "button";
-    card.innerHTML = `
-      <svg class="gift-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${iconFor(gift.name)}</svg>
-      <span class="gift-card__name">${gift.name}</span>
-      <span class="gift-card__value">R$ ${gift.value}<small>valor aproximado</small></span>
-    `;
-    card.addEventListener("click", () => openPixModal(gift.name, gift.value));
-    grid.appendChild(card);
+  const filtersEl = document.getElementById("gift-filters");
+
+  // botão "Todos"
+  const allBtn = document.createElement("button");
+  allBtn.className = "gift-filter active";
+  allBtn.type = "button";
+  allBtn.textContent = "Todos";
+  allBtn.dataset.category = "todos";
+  filtersEl.appendChild(allBtn);
+
+  EVENT_CONFIG.giftCategories.forEach((group) => {
+    const btn = document.createElement("button");
+    btn.className = "gift-filter";
+    btn.type = "button";
+    btn.textContent = group.category;
+    btn.dataset.category = group.category;
+    filtersEl.appendChild(btn);
+
+    const heading = document.createElement("h3");
+    heading.className = "gift-category-heading";
+    heading.dataset.category = group.category;
+    heading.textContent = group.category;
+    grid.appendChild(heading);
+
+    group.items.forEach((gift) => {
+      const card = document.createElement("button");
+      card.className = "gift-card";
+      card.type = "button";
+      card.dataset.category = group.category;
+      card.innerHTML = `
+        <svg class="gift-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${iconFor(gift.name)}</svg>
+        <span class="gift-card__name">${gift.name}</span>
+        <span class="gift-card__value">R$ ${gift.value}<small>valor aproximado</small></span>
+      `;
+      card.addEventListener("click", () => openPixModal(gift.name, gift.value));
+      grid.appendChild(card);
+    });
+  });
+
+  filtersEl.addEventListener("click", (e) => {
+    const btn = e.target.closest(".gift-filter");
+    if (!btn) return;
+
+    filtersEl.querySelectorAll(".gift-filter").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const chosen = btn.dataset.category;
+    grid.querySelectorAll(".gift-card, .gift-category-heading").forEach((el) => {
+      const show = chosen === "todos" || el.dataset.category === chosen;
+      el.style.display = show ? "" : "none";
+    });
   });
 
   // ---------- Reveal ao rolar a página ----------
@@ -172,14 +246,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalQr = document.getElementById("pix-modal-qr");
   const modalCode = document.getElementById("pix-modal-code");
   const copyBtn = document.getElementById("pix-copy-btn");
+  const selectBtn = document.getElementById("pix-select-btn");
+  let modalGift = null;
 
   function openPixModal(giftName, amount) {
+    modalGift = giftName ? { name: giftName, value: amount || null } : { name: "Valor livre", value: null };
+
     const payload = buildPixPayload({
       key: EVENT_CONFIG.pix.key,
       name: EVENT_CONFIG.pix.receiverName,
       city: EVENT_CONFIG.pix.receiverCity,
       amount: amount || undefined,
-      description: giftName ? giftName.substring(0, 30) : "Cha de cozinha",
+      description: giftName ? giftName.substring(0, 30) : "Cha de Panela",
     });
 
     modalTitle.textContent = giftName
@@ -188,6 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modalQr.src = pixQrCodeUrl(payload);
     modalCode.textContent = payload;
     copyBtn.dataset.code = payload;
+    selectBtn.textContent = "Marcar como meu presente ✓";
     modal.classList.add("open");
   }
 
@@ -203,5 +282,14 @@ document.addEventListener("DOMContentLoaded", () => {
       copyBtn.textContent = "Copiado! ✓";
       setTimeout(() => (copyBtn.textContent = "Copiar código Pix"), 2000);
     });
+  });
+
+  selectBtn.addEventListener("click", () => {
+    selectedGift = modalGift;
+    updateGiftStatusUI();
+    selectBtn.textContent = "Presente marcado! ✓";
+    setTimeout(() => {
+      modal.classList.remove("open");
+    }, 700);
   });
 });
