@@ -61,10 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!name || !count) return;
 
+    const submittedAt = new Date().toLocaleString("pt-BR", {
+      dateStyle: "short",
+      timeStyle: "short",
+    });
+
     const templateParams = {
       guest_name: name,
       guest_count: count,
       guest_message: message || "(sem mensagem)",
+      submitted_at: submittedAt,
     };
 
     const notConfigured =
